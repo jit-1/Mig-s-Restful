@@ -75,6 +75,14 @@ def delete_task(task_id):
     tasks.remove(task[0])
     return jsonify({'result': True})
 
+def make_public_task(task):
+    new_task = {}
+    for field in task:
+        if field == 'id':
+            new_task['uri'] = url_for('get_task', task_id=task['id'], _external=True)
+        else:
+            new_task[field] = task[field]
+    return new_task
 
 if __name__== '__main__':
 	app.run(debug=True)
