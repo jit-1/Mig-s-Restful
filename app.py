@@ -29,7 +29,7 @@ def get_task(task_id):
     task = [task for task in tasks if task['id'] == task_id]
     if len(task) == 0:
         abort(404)
-    return jsonify({'task': task[0]})
+    return jsonify({'task': make_public_task(task[0])})
 
 @app.errorhandler(404)
 def not_found(error):
@@ -46,7 +46,7 @@ def create_task():
         'done': False
     }
     tasks.append(task)
-    return jsonify({'task': task}), 201
+    return jsonify({'task': make_public_task(task)}), 201
 
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
@@ -65,7 +65,7 @@ def update_task(task_id):
     task[0]['title'] = request.json.get('title', task[0]['title'])
     task[0]['description'] = request.json.get('description', task[0]['description'])
     task[0]['done'] = request.json.get('done', task[0]['done'])
-    return jsonify({'task': task[0]})
+    return jsonify({'task': make_public_task(task[0])})
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
