@@ -100,10 +100,9 @@ def get_password(username):
 
 @auth.error_handler
 def unauthorized():
-	return make_response(jsonify({'error': 'Unauthorized Access'}), 403
+	return make_response(jsonify({'error': 'Unauthorized Access'}), 403)
 
 
-
-if __name__== '__main__':
+if __name__ == '__main__' :
 	app.run(debug=True)
 
